@@ -1,9 +1,17 @@
-FROM redhat/ubi8
+# Use official Python image instead of Ubuntu
+FROM python:3.11-slim
 
-RUN yum install python3 -y
+# Set working directory inside container
+WORKDIR /app
 
-RUN pip3 install flask
+# Copy application code
+COPY app.py /app/
 
-COPY app.py /app.py
+# Install Flask
+RUN pip install --no-cache-dir flask
 
-CMD [ "python3" , "/app.py" ]
+# Expose port
+EXPOSE 5000
+
+# Run Flask app
+CMD ["python", "app.py"]
